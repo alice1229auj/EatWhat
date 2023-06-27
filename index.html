@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>抽籤系統</title>
+</head>
+<body>
+    <form method="post" action="">
+        <label for="draw-method">選擇抽籤方式：</label>
+        <select id="draw-method" name="draw_method">
+            <option value="random" <?php if ($drawMethod === 'random') echo 'selected'; ?>>全隨機</option>
+            <option value="tag" <?php if ($drawMethod === 'tag') echo 'selected'; ?>>指定標籤</option>
+        </select>
+
+        <br>
+
+        <label for="selected-tag">選擇標籤：</label>
+        <select id="selected-tag" name="selected_tag">
+            <option value="">不使用標籤</option>
+                        <?php foreach ($tags as $tag): ?>
+                <option value="<?php echo $tag; ?>" <?php if ($selectedTag === $tag) echo 'selected'; ?>><?php echo $tag; ?></option>
+            <?php endforeach; ?>
+        </select>
+
+        <br>
+
+        <input type="submit" value="抽籤">
+    </form>
+
+    <?php if (isset($result)): ?>
+        <h2>抽中的結果為：<?php echo $result; ?></h2>
+    <?php endif; ?>
+</body>
+</html>
+
