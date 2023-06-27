@@ -1,88 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" name="viewport" content="width=device-width">
-  <title>抽籤系統</title>
-  <link href="style.css" rel="stylesheet" type="text/css">
+  <meta charset="UTF-8">
+  <title>抽籤網站</title>
+  <style>
+    #filterSection {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <form id="draw-form">
-    <label for="draw-method">抽籤方式：</label>
-    <select id="draw-method" name="draw_method">
-      <option value="random">全隨機</option>
-      <option value="tag">指定標籤</option>
+  <h1>抽籤網站</h1>
+
+  <button onclick="randomSelection()">全隨機抽籤</button>
+  <button onclick="showFilterSection()">指定Tag抽籤</button>
+
+  <div id="filterSection">
+    <h3>篩選Tag</h3>
+    <select id="tagFilter">
+      <option value="">所有</option>
     </select>
+    <button onclick="filterSelection()">篩選抽籤</button>
+  </div>
 
-    <label for="selected-tag">選擇標籤：</label>
-    <select id="selected-tag" name="selected_tag">
-      <option value="">不使用標籤</option>
-    </select>
+  <hr>
 
-    <input type="button" id="draw-button" value="抽籤">
-  </form>
+  <h2>抽籤結果</h2>
+  <div id="result"></div>
 
-  <div id="result" style="display: none;"></div>
+  <hr>
 
-  <script>
-    // 读取 XML 文件
-    fetch('lunch.xml')
-      .then(response => response.text())
-      .then(xml => {
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xml, 'application/xml');
-        const rows = xmlDoc.getElementsByTagName('row');
+  <h2>XML 內容</h2>
+  <button onclick="toggleXml()">伸縮</button>
+  <div id="xmlContent"></div>
 
-        // 读取标签数据并添加到选项列表
-        const tagsSelect = document.getElementById('selected-tag');
-        const tags = new Set();
-        for (let i = 0; i < rows.length; i++) {
-          const tagsString = rows[i].getAttribute('tags');
-          if (tagsString) {
-            const rowTags = tagsString.split(',');
-            rowTags.forEach(tag => tags.add(tag.trim()));
-          }
-        }
-        tags.forEach(tag => {
-          const option = document.createElement('option');
-          option.value = tag;
-          option.textContent = tag;
-          tagsSelect.appendChild(option);
-        });
-
-        // 抽籤按钮点击事件处理
-        document.getElementById('draw-button').addEventListener('click', function() {
-          const drawMethod = document.getElementById('draw-method').value;
-          const selectedTag = document.getElementById('selected-tag').value;
-
-          if (drawMethod === 'random') {
-            const randomIndex = Math.floor(Math.random() * rows.length);
-            const selectedRow = rows[randomIndex].getAttribute('name');
-            document.getElementById('result').textContent = selectedRow;
-          } else if (drawMethod === 'tag') {
-            const filteredRows = Array.from(rows).filter(row => {
-              const tagsString = row.getAttribute('tags');
-              if (tagsString) {
-                const rowTags = tagsString.split(',');
-                return rowTags.includes(selectedTag.trim());
-              }
-              return false;
-            });
-
-            if (filteredRows.length > 0) {
-              const randomIndex = Math.floor(Math.random() * filteredRows.length);
-              const selectedRow = filteredRows[randomIndex].getAttribute('name');
-              document.getElementById('result').textContent = selectedRow;
-            } else {
-              document.getElementById('result').textContent = '無符合標籤的項目';
-            }
-          }
-
-          document.getElementById('result').style.display = 'block';
-        });
-      })
-      .catch(error => {
-        console.error('读取 XML 文件时出错：', error);
-      });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
