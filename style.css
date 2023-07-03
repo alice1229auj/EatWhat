@@ -1,31 +1,40 @@
-table {
-    border-collapse: collapse;
-    border: 2px solid rgb(200,200,200);
-    letter-spacing: 1px;
-    font-size: 0.8rem;
+  /* 調整內容區域(name & tags) */
+  #divChangeXmlS2 {
+    display: none;
   }
-  
-  td, th {
-    border: 1px solid rgb(190,190,190);
-    padding: 10px 20px;
+
+  /* 刪除Xml(按鈕) */
+  #divDelXml {
+    display: none;
   }
-  
-  th {
-    background-color: rgb(235,235,235);
+
+  /* 抽籤結果 */
+  #result {
+    color: blueviolet;
+    font-weight: bold;
   }
-  
-  td {
+
+  /* 抽籤按鈕 */
+  .btn_pick_submit {
+    background-color: #4CAF50;
+    color: white;
     text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    height: 50px;
   }
-  
-  tr:nth-child(even) td {
-    background-color: rgb(250,250,250);
+
+  /* 開啟管理表格按鈕 */
+  #btnShowCtrlXmlPanel {
+    display: block;
   }
-  
-  tr:nth-child(odd) td {
-    background-color: rgb(245,245,245);
+
+  /* 關閉管理表格按鈕 */
+  #btnHideCtrlXmlPanel {
+    display: none;
   }
-  
-  caption {
-    padding: 10px;
+
+  /* 管理表格介面 */
+  #tableControlPanel {
+    display: none;
   }

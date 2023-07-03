@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <data>
-    <row name="麥味登" tags="早餐店"/>
-    <row name="甲尚飽" tags="早餐店"/>
-    <row name="Apple203" tags="早餐店"/>
-    <row name="潤餅" tags="小食量, 想吃菜"/>
-    <row name="33鐵板燒" tags="大食量"/>
-	<row name="禾享素食" tags="想吃菜, 大食量"/>
-	<row name="早安屋" tags="早餐店"/>
-	<row name="周家米糕" tags="小食量"/>
-	<row name="克拉克早餐店" tags="早餐店"/>
-	<row name="永安粥品" tags="粥"/>
-	<row name="摩斯" tags=""/>
-	<row name="拉亞漢堡" tags=""/>
-	<row name="艾隆義大利麵" tags="義大利麵"/>
-	<row name="壽亭(韓式料理)" tags="大食量"/>
-	<row name="鮮做壽司" tags=""/>
+  <row name="麥味登" tags="早餐店"/>
+  <row name="甲尚飽" tags="早餐店"/>
+  <row name="Apple203" tags="早餐店"/>
+  <row name="潤餅" tags="小食量, 想吃菜"/>
+  <row name="33鐵板燒" tags="大食量, 想吃菜"/>
+  <row name="禾享素食" tags="想吃菜, 大食量"/>
+  <row name="早安屋" tags="早餐店"/>
+  <row name="周家米糕" tags="小食量"/>
+  <row name="克拉克早餐店" tags="早餐店"/>
+  <row name="永安粥品" tags="粥"/>
+  <row name="摩斯" tags=""/>
+  <row name="拉亞漢堡" tags=""/>
+  <row name="艾隆義大利麵" tags="義大利麵"/>
+  <row name="壽亭(韓式料理)" tags="大食量"/>
+  <row name="鮮做壽司" tags="小食量"/>
 </data>

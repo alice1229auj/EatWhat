@@ -1,0 +1,35 @@
+###### 筆記 ###### 
+# jQuery 的 $.ajax() 筆記
+# https://hackmd.io/@nfu-johnny/B1N50eGju
+
+# 如何使用jquery-ajax-submit-傳送form表單serialize-方法
+# https://ucamc.com/289-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8jquery-ajax-submit-%E5%82%B3%E9%80%81form%E8%A1%A8%E5%96%AEserialize-%E6%96%B9%E6%B3%95
+
+
+Xml內容與PHP程式碼如下，當我用TAG="想吃菜"時，會找不到對應的Name
+請幫我改成正確的程式碼
+'''xml
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+  <row name="潤餅" tags="小食量, 想吃菜"/>
+  <row name="早安屋" tags="早餐店"/>
+  <row name="周家米糕" tags="小食量"/>
+  <row name="永安粥品" tags="粥"/>
+  <row name="鮮做壽司" tags="小食量"/>
+</data>
+'''
+'''php
+function pickOneByTag($tag = null){
+    global $xml;
+    $all_names=[];
+    foreach($xml->row as $row){
+        if($tag === null || in_array($tag, explode(',', $row['tags']))){
+            $all_names[] = (string)$row['name'];
+        }
+    }
+
+    $randomIndex = array_rand($all_names);
+
+    return $all_names[$randomIndex];
+}
+'''

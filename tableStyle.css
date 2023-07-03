@@ -1,0 +1,38 @@
+table.txmlAll {
+    border-spacing: 0;
+}
+
+/* tr.txmlAll {
+    text-align: center;
+} */
+
+/* th.txmlAll {
+    padding: 10px;
+} */
+
+table.txmlAll tbody tr:nth-child(odd) {
+    background-color: #eee
+}
+
+table.txmlAll thead {
+    background-color: blue;
+    color: white;
+}
+
+table.txmlAll thead th:first-child {
+    border-radius: 5px 0 0 0;
+    border: 1px solid blue;
+}
+
+table.txmlAll thead th:last-child {
+    border-radius: 0 5px 0 0;
+    border-right: 1px solid blue;
+}
+
+table.txmlAll tbody tr:last-child td:first-child {
+    border-radius: 0 0 0 5px;
+}
+
+table.txmlAll tbody tr:last-child td:last-child {
+    border-radius: 0 0 5px 0;
+}

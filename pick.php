@@ -52,8 +52,8 @@ function PickOne($pickyType){
 function pickOneByTag($tag = null){
     global $xml;
     $all_names=[];
-    foreach($xml->row as $row){
-        if($tag=== null || in_array($tag, explode(',', $row['tags']))){
+    foreach ($xml->row as $row) {
+        if ($tag === null || in_array(trim($tag), array_map('trim', explode(',', $row['tags'])))) {
             $all_names[] = (string)$row['name'];
         }
     }

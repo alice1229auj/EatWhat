@@ -2,36 +2,6 @@
 require_once("define.php");
 
 session_start();
-
-$tags = GetXmlTags();
-
-function GetXmlTags()
-{
-    global $xml;
-    // 取得所有標籤
-    $tags = [];
-    $tags[] = STR_ALL_RANDOM;
-    foreach ($xml->row as $row) {
-        $rowTags = explode(',', $row['tags']);
-        foreach ($rowTags as $tag) {
-            $tag = trim($tag);
-            if (!in_array($tag, $tags)) {
-                $tags[] = $tag;
-            }
-        }
-    }
-    return $tags;
-}
-?>
-<?php
-###### 筆記 ###### 
-# jQuery 的 $.ajax() 筆記
-# https://hackmd.io/@nfu-johnny/B1N50eGju
-
-# 如何使用jquery-ajax-submit-傳送form表單serialize-方法
-# https://ucamc.com/289-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8jquery-ajax-submit-%E5%82%B3%E9%80%81form%E8%A1%A8%E5%96%AEserialize-%E6%96%B9%E6%B3%95
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,57 +11,87 @@ function GetXmlTags()
     <meta name="viewport" content="width=device-width">
     <title>中午吃個飯</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="tableStyle.css" rel="stylesheet" type="text/css">
+    <link rel="icon" href="/food.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/food.ico" type="image/x-icon" />
 </head>
 
 <body>
     <!-- 選擇抽籤方式 -->
     <form id="pickForm">
         <select name="pickType" id="pickType">
-            <?php foreach ($tags as $tag) { ?>
-                <option value="<?php echo $tag; ?>">
-                    <?php echo $tag; ?>
-                </option>
-            <?php } ?>
         </select>
-        <button type="button" id="pick_submit">抽!</button>
+        <p></p>
+        <button type="button" class="btn_pick_submit" id="pick_submit">　抽!　</button>
     </form>
     <h2>Result:</h2>
-    <p id="result"></p> <!-- 顯示回傳資料 -->
-    <!-- 顯示回傳的資料 -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#pick_submit").click(
-                function () {
-                    $.ajax(
-                        {
-                            type: "POST", // 傳送方式
-                            url: "pick.php",
-                            dataType: "json", // 資料格式
-                            data: {
-                                pickType: $("#pickType").val()
-                            }
-                            ,
-                            success: function (data) {
-                                if (data.pickType) {
-                                    //$("#pickForm")[0].reset(); //重設 ID 為 pickForm 的 form (表單)
-                                    // 調整 id="result" 內容
-                                    $("#result").html(data.pickResult);
-                                }
-                                //console.log("success" + data.pickResult);
-                            },
-                            error: function (jqXHR, testStatus, errorThrown) {
-                                console.log("1 非同步呼叫返回失敗,XMLHttpResponse.readyState:" + jqXHR.readyState);
-                                console.log("2 非同步呼叫返回失敗,XMLHttpResponse.status:" + jqXHR.status);
-                                console.log("3 非同步呼叫返回失敗,textStatus:" + testStatus);
-                                console.log("4 非同步呼叫返回失敗,errorThrown:" + errorThrown);
-                            }
-                        }
-                    )
-                }
-            )
-        }
-        )
-    </script>
+    <p id="result">　　　</p> <!-- 顯示回傳資料 -->
+    
+    <table>
+        <tr>
+            <td>
+                <!-- 顯示Xml 內容 -->
+                <button type="button" id="btnShowAllXml">顯示Xml</button>
+            </td>
+            <td>
+                <!--  Xml管理系列  -->
+                <button type="button" id="btnShowCtrlXmlPanel"> 顯示管理Xml </button>
+                <button type="button" id="btnHideCtrlXmlPanel"> 隱藏管理Xml </button>
+            </td>
+        </tr>
+    </table>
+    
+    <div id="tableControlPanel">        
+        <h4>新增</h4>
+        <form id="addXml">
+            <label for="addXmlName">名稱：</label>
+            <input type="text" name="addXmlName" id="addXmlName" required>
+            <label for="addXmlTags">標籤：</label>
+            <input type="text" name="addXmlTags" id="addXmlTags" required>
+            <button type="submit" id="addXmlSubmit">新增</button>
+        </form>
+        <h4>修改 或 刪除</h4>
+        <form id="formChangeXml_s1">
+            <label for="changeXmlID">編號：</label>
+            <input type="text" name="changeXmlID" id="changeXmlID" pattern="[0-9]+" placeholder="正整數" required>
+            <button type="submit" id="changeXml_step1">顯示Xml內容</button>
+        </form>
+        <div id="divChangeXmlS2">
+            <!-- 空一行 -->
+            <p></p>
+            <form id="formChangeXml_s2">
+                <label for="changeXmlName">名稱：</label>
+                <input type="text" name="changeXmlName" id="changeXmlName" required>
+                <label for="changeXmlTags">標籤：</label>
+                <input type="text" name="changeXmlTags" id="changeXmlTags" required>
+                <button type="submit" id="btnChangeXmlStep2">調整</button>
+            </form>
+        </div>
+        <div id="divDelXml">
+            <form id="delXml">
+                <button type="submit" id="btnDelXml">刪除</button>
+            </form>
+        </div>
+        <!-- Xml調整結果 -->
+        <h4>Xml變動結果:</h4>
+        <p id="xmlResult"></p>
+    </div>
+    
+    <div id="div_all_xml_datas">
+        <button type="button" id="btnHideAllXml">隱藏Xml</button>
+        <p></p>
+        <table class="txmlAll">
+            <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Tags</th>
+            </thead>
+            <tbody id="tbody_xml_row">
+            </tbody>
+        </table>
+    </div>
+    <script src="script.js"></script>
 </body>
 
 </html>
